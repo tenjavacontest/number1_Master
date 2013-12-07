@@ -14,16 +14,14 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class PlayerListener implements Listener
 {
-	private ArrayList<String> safe = new ArrayList<String>();
-	private HashMap<String, EntityBlockSpawn> entityTasks = new HashMap<String, EntityBlockSpawn>();
+	private final List<FallingBlock> fallingBlocks = new ArrayList<FallingBlock>();
+	private final Map<String, EntityBlockSpawn> entityTasks = new HashMap<String, EntityBlockSpawn>();
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e)
@@ -59,7 +57,15 @@ public class PlayerListener implements Listener
 		for(int i = 0; i < 5; i++)
 		{
 			FallingBlock fallingBlock = loc.getWorld().spawnFallingBlock(loc, block.getType(), block.getData());
-			fallingBlock.setVelocity(new Vector(Math.PI, Math.PI, Math.PI));
+
+			Random r = new Random();
+			Vector velocity = new Vector();
+			velocity.setX((r.nextBoolean()) ? Math.random() : - Math.random());
+			velocity.setY((r.nextBoolean()) ? Math.random() : - Math.random());
+			velocity.setZ((r.nextBoolean()) ? Math.random() : - Math.random());
+			fallingBlock.setVelocity(velocity);
+
+			this.fallingBlocks.add(fallingBlock);
 		}
 
 		if(block.getType() == Material.TNT) loc.getWorld().spawnEntity(loc, EntityType.CREEPER);
@@ -69,28 +75,13 @@ public class PlayerListener implements Listener
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)
-	{
-		e.getPlayer().sendMessage(TenJava.getPrefix() + "You have 10 seconds to get to a safe spot!");
-		TenJava.spawnFirework(e.getPlayer().getLocation());
-
-		final String playerName = e.getPlayer().getName();
-
-		new BukkitRunnable()
-		{
-			@Override
-			public void run()
-			{ if(safe.contains(playerName)) safe.remove(playerName); }
-
-		}.runTaskLater(TenJava.p(), 200);
-	}
+	{ TenJava.spawnFirework(e.getPlayer().getLocation()); }
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
 		Player player		= e.getPlayer();
 		String playerName	= player.getName();
-
-		if(safe.contains(playerName)) return;
 
 		Location loc		= player.getLocation().clone();
 		Block under			= e.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
@@ -107,8 +98,12 @@ public class PlayerListener implements Listener
 
 		switch(under.getType())
 		{
+			case GRASS:
+				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.GRASS, loc, EntityType.VILLAGER));
+				break;
+
 			case COBBLESTONE:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.GRASS, loc, EntityType.ZOMBIE));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.COBBLESTONE, loc, EntityType.ZOMBIE));
 				break;
 
 			case DIRT:
@@ -116,11 +111,11 @@ public class PlayerListener implements Listener
 				break;
 
 			case ICE:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.SAND, loc, EntityType.SKELETON));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.ICE, loc, EntityType.SKELETON));
 				break;
 
 			case MOSSY_COBBLESTONE:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.STONE, loc, EntityType.SILVERFISH));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.MOSSY_COBBLESTONE, loc, EntityType.SILVERFISH));
 				break;
 
 			case WATER:
@@ -133,6 +128,7 @@ public class PlayerListener implements Listener
 
 			case SNOW:
 				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.SNOW, loc, EntityType.WOLF));
+				break;
 
 			case AIR:
 				if(under.getRelative(BlockFace.DOWN).getType() == Material.AIR)

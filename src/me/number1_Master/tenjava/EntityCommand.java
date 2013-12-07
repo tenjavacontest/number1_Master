@@ -25,41 +25,43 @@ public class EntityCommand implements CommandExecutor
 			}
 			else if(args.length == 1)
 			{
-				EntityType entity = EntityType.valueOf(args[0]);
-				if(entity != null)
+				try
 				{
+					EntityType entity = EntityType.valueOf(args[0].toUpperCase());
 					player.getWorld().spawnEntity(player.getLocation(), entity);
+					TenJava.spawnFirework(player.getLocation());
 					player.sendMessage(prefix + "Spawned entity " + args[0] + "!");
 				}
-				else player.sendMessage(prefix + "Unable to spawn entity " + args[0] + "!");
-				return true;
-			}
-			else if(args.length == 2)
-			{
-				EntityType entity = EntityType.valueOf(args[0]);
-				if(entity != null)
-				{
-					int amount = Integer.valueOf(args[1]);
-					for(int i = 0; i < amount; i++) player.getWorld().spawnEntity(player.getLocation(), entity);
-					player.sendMessage(prefix + "Spawned entity " + args[0] + "!");
-				}
-				else player.sendMessage(prefix + "Unable to spawn entity " + args[0] + "!");
+				catch(Exception err)
+				{ player.sendMessage(prefix + "Unable to spawn entity " + args[0] + "!"); }
 				return true;
 			}
 			else
 			{
-				Entity lastEntity = null;
+				int amount;
+				try
+				{ amount = Integer.valueOf(args[0]); }
+				catch(NumberFormatException err)
+				{ amount = 1; }
 
-				for(int i = 0, l = args.length; i < l; i++)
+				for(int i = 0; i < amount; i++)
 				{
-					EntityType entity = EntityType.valueOf(args[i]);
-					if(entity != null)
+					Entity lastEntity = null;
+
+					for(int l = 1, a = args.length; l < a; l++)
 					{
-						Entity e = player.getWorld().spawnEntity(player.getLocation(), entity);
-						if(!(lastEntity == null)) lastEntity.setPassenger(e);
-						lastEntity = e;
+						try
+						{
+							EntityType entity = EntityType.valueOf(args[l].toUpperCase());
+							Entity e = player.getWorld().spawnEntity(player.getLocation(), entity);
+							if(!(lastEntity == null)) lastEntity.setPassenger(e);
+							lastEntity = e;
+						}
+						catch(Exception err)
+						{ player.sendMessage(prefix + "Unable to spawn entity " + args[l] + "!"); }
 					}
-					else player.sendMessage(prefix + "Unable to spawn entity " + args[i] + "!");
+
+					TenJava.spawnFirework(player.getLocation());
 				}
 
 				player.sendMessage(prefix + args.length + " stacked entites spawned!");

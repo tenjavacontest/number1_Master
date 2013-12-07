@@ -1,15 +1,12 @@
 package me.number1_Master.TenJava;
 
-import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Pig;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -18,21 +15,21 @@ import java.util.Random;
 
 public class EntityListener implements Listener
 {
-	private List<String> entityNames;
+	private final List<String> entityNames;
 
 	public EntityListener()
 	{
 		this.entityNames = new ArrayList<String>();
-		this.entityNames.add("Maurice");
-		this.entityNames.add("George");
-		this.entityNames.add("Jerôme");
 		this.entityNames.add("Maurquitte");
+		this.entityNames.add("George");
+		this.entityNames.add("Jerome");
 		this.entityNames.add("Jeral");
 		this.entityNames.add("Harry");
 		this.entityNames.add("Beautiful");
 		this.entityNames.add("Witch");
 		this.entityNames.add("Defaq");
 		this.entityNames.add("Reality");
+		this.entityNames.add("Maurice");
 		this.entityNames.add("DeShawn");
 		this.entityNames.add("Reginald");
 		this.entityNames.add("Tyrone");
@@ -45,11 +42,12 @@ public class EntityListener implements Listener
 		this.entityNames.add("Holly");
 		this.entityNames.add("Madeline");
 		this.entityNames.add("Caesar");
+		this.entityNames.add("Kacper");
 	}
 
 	@EventHandler
-	public void onEntityDamagedByEntity(EntityDamageEvent e)
-	{ e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), e.getEntity().getType()); }
+	public void onEntityExplode(EntityExplodeEvent e)
+	{ e.getLocation().getWorld().spawnEntity(e.getLocation(), EntityType.CREEPER); }
 
 	@EventHandler
 	public void onEntitySpawn(CreatureSpawnEvent e)
@@ -59,15 +57,9 @@ public class EntityListener implements Listener
 
 		switch(e.getEntityType())
 		{
-			case CREEPER:
-				if(random.nextBoolean()) entity.getWorld().spawnEntity(e.getLocation(), EntityType.BAT).setPassenger(entity);
-				break;
-
-			case BAT:
-				if(random.nextBoolean()) entity.setPassenger(entity.getWorld().spawnEntity(e.getLocation(), EntityType.CREEPER));
-				break;
-
 			case ZOMBIE:
+				e.getEntity().setCustomName(this.entityNames.get(random.nextInt(this.entityNames.size())));
+
 				new BukkitRunnable()
 				{
 					@Override
@@ -81,7 +73,7 @@ public class EntityListener implements Listener
 						}
 					}
 
-				}.runTaskTimer(TenJava.p(), 200, 200);
+				}.runTaskTimer(TenJava.p(), 100, 600);
 				break;
 
 			case SLIME:
@@ -105,12 +97,4 @@ public class EntityListener implements Listener
 				break;
 		}
 	}
-
-	@EventHandler
-	public void onExplosionPrime(ExplosionPrimeEvent e)
-	{ e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.SHEEP_SHEAR, 10, 1); }
-
-	@EventHandler
-	public void onEntityExplode(EntityExplodeEvent e)
-	{ e.getLocation().getWorld().spawnEntity(e.getLocation(), EntityType.CREEPER); }
 }
