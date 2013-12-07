@@ -2,3 +2,10 @@ name: TenJava
 version: 1.0
 author: number1_Master / number1Master
 main: me.number1_Master.TenJava.TenJava
+commands:
+    entity:
+        desciption: Spawn entities :)
+        usage: |
+            If you see this message, that means
+            something is wrong! You must contact
+            number1_Master as soon as possible!
