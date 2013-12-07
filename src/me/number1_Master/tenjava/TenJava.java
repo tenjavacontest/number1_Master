@@ -1,4 +1,4 @@
-package me.number1_Master.tenjava;
+package me.number1_Master.TenJava;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
