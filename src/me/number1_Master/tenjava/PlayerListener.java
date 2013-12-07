@@ -8,19 +8,16 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.util.Vector;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
 public class PlayerListener implements Listener
 {
-	private final List<FallingBlock> fallingBlocks = new ArrayList<FallingBlock>();
 	private final Map<String, EntityBlockSpawn> entityTasks = new HashMap<String, EntityBlockSpawn>();
 
 	@EventHandler
@@ -43,37 +40,6 @@ public class PlayerListener implements Listener
 	{ e.getRightClicked().setPassenger(e.getPlayer()); }
 
 	@EventHandler
-	public void onBlockPlace(BlockPlaceEvent e)
-	{ this.placeBreakBlock(e.getBlock()); }
-
-	@EventHandler
-	public void onBlockBreak(BlockBreakEvent e)
-	{ this.placeBreakBlock(e.getBlock());}
-
-	private void placeBreakBlock(Block block)
-	{
-		Location loc = block.getLocation().clone();
-
-		for(int i = 0; i < 5; i++)
-		{
-			FallingBlock fallingBlock = loc.getWorld().spawnFallingBlock(loc, block.getType(), block.getData());
-
-			Random r = new Random();
-			Vector velocity = new Vector();
-			velocity.setX((r.nextBoolean()) ? Math.random() : - Math.random());
-			velocity.setY((r.nextBoolean()) ? Math.random() : - Math.random());
-			velocity.setZ((r.nextBoolean()) ? Math.random() : - Math.random());
-			fallingBlock.setVelocity(velocity);
-
-			this.fallingBlocks.add(fallingBlock);
-		}
-
-		if(block.getType() == Material.TNT) loc.getWorld().spawnEntity(loc, EntityType.CREEPER);
-
-		TenJava.spawnFirework(loc);
-	}
-
-	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)
 	{ TenJava.spawnFirework(e.getPlayer().getLocation()); }
 
@@ -82,65 +48,67 @@ public class PlayerListener implements Listener
 	{
 		Player player		= e.getPlayer();
 		String playerName	= player.getName();
-
-		Location loc		= player.getLocation().clone();
 		Block under			= e.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
+		ItemStack boots		= player.getInventory().getBoots();
 
 		if(this.entityTasks.containsKey(playerName))
 		{
-			if(this.entityTasks.get(playerName).getMaterial() == under.getType()) return;
+			if(this.entityTasks.get(playerName).getMaterial() == under.getType() &&
+					boots != null && boots.getType() == Material.DIAMOND_BOOTS)
+				return;
 			else
 			{
 				this.entityTasks.get(playerName).cancel();
 				this.entityTasks.remove(player.getName());
+				return;
 			}
 		}
 
 		switch(under.getType())
 		{
 			case GRASS:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.GRASS, loc, EntityType.VILLAGER));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.GRASS, EntityType.VILLAGER));
 				break;
 
 			case COBBLESTONE:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.COBBLESTONE, loc, EntityType.ZOMBIE));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.COBBLESTONE, EntityType.ZOMBIE));
 				break;
 
 			case DIRT:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.DIRT, loc, EntityType.SPIDER));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.DIRT, EntityType.SPIDER));
 				break;
 
 			case ICE:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.ICE, loc, EntityType.SKELETON));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.ICE, EntityType.SKELETON));
 				break;
 
 			case MOSSY_COBBLESTONE:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.MOSSY_COBBLESTONE, loc, EntityType.SILVERFISH));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.MOSSY_COBBLESTONE, EntityType.SILVERFISH));
 				break;
 
 			case WATER:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.WATER, loc, EntityType.SQUID));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.WATER, EntityType.SQUID));
 				break;
 
 			case LEAVES:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.LEAVES, loc, EntityType.SPIDER));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.LEAVES, EntityType.SPIDER));
 				break;
 
 			case SNOW:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.SNOW, loc, EntityType.WOLF));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.SNOW, EntityType.WOLF));
 				break;
 
 			case AIR:
 				if(under.getRelative(BlockFace.DOWN).getType() == Material.AIR)
-					this.entityTasks.put(playerName, new EntityBlockSpawn(Material.AIR, loc, EntityType.WITHER));
+					this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.AIR, EntityType.WITHER));
 				break;
 
 			case NETHERRACK:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.NETHERRACK, loc, EntityType.MAGMA_CUBE));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.NETHERRACK, EntityType.MAGMA_CUBE));
 				break;
 
 			case NETHER_BRICK:
-				this.entityTasks.put(playerName, new EntityBlockSpawn(Material.NETHER_BRICK, loc, EntityType.BLAZE));
+				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.NETHER_BRICK, EntityType.BLAZE));
 				break;
 		}
 	}

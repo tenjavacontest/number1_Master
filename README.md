@@ -1,28 +1,32 @@
 number1_Master
-========
+==============
 Streaming: http://twitch.tv/MrDeveloperK/
 Compiled against Craftbukkit Recommended Build 1.6.4-R2.0!
 
 Documentation
-========
+-------------
 
-Joining and Walking:
+### Joining:
+A firework spawns! Is it not a beautiful entity? That was retorical ... Now, walk over to a mob. What do you see? A sexy-ass name :D
 
-When one joins the server, a firework spawns :D. One will also be prompted with a 10 second safe period.
-During this time, mobs will not spawn you move. After these 10 seconds, assuming one has not disconnected, mobs will begin to spawning.
-Four mobs will surround you relatively 6 blocks away in the x and z direction according to the block you are standing on.
+### Placing / Destroying:
+Place and destroying is interesting. Another firework spawns. :o On top of that, one will see falling sand entities :o
 
+### Boats / Minecart:
+Boats are just too exciting for you. THEY CAN FLY! Minecarts, on the other hand, explode too often ...
 
-Placing and Destroying:
+### Explosions:
+Upon exploding an entity will spawn a creeper. This will be abused later on ...
 
-When one destroys or places a block, that block will shoot out a few blocks of that type (Falling Sand Entities).
-Confusing, but interesting. Please don't place TNT. It is for your own benefit. A fireworkd will spawn as well :)
+### Commands:
+There is one command that will fit your needs.
+* /entity <entity> - Spawns an entity.
+* /entity <amount> <entity> - Spawns an amount of entites.
+* /entity <amount> <entity1> <entity2> <...> - Spawns entity2 on entity1 a certain amount of times.
 
-
-Mobs:
-
-Mobs around the world spawn with interesting names.
-If they explode, they make a special sound and spawn a creeper.
-Zombies give birth to baby pigs!
+### Walking:
+Diamond Boots are nice sexy armor. However, depending on the material you are on, more mobs spawn!
+Although they might be fairly safe, DO NOT GO GAMEMODE AND FLY IN THE AIR!
 
 Enjoy :)
+========
