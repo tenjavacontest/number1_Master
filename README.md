@@ -24,9 +24,12 @@ Upon exploding, falling sand entities will fly like mad! Also, a creeper will sp
 
 ### Commands:
 Three commands, with tab completion can support your needs:
-* `/entity <entity> - Spawns an entity. Permission: entity.single`
-* `/entity <amount> <entity> - Spawns an amount of entites. Permission: entity.multiple`
-* `/entity <amount> <entity1> <entity2> <...> - Spawns entity2 riding entity1. A certain amount of these stacks will be created! Permission: entity.multiple`
+* `/entity <entity> - Spawns an entity.
+    Permission: entity.single`
+* `/entity <amount> <entity> - Spawns an amount of entites.
+    Permission: entity.multiple`
+* `/entity <amount> <entity1> <entity2> <...> - Spawns entity2 riding entity1. x amount of stacks will be spawned.
+    Permission: entity.multiple`
 
 ### Walking:
 Diamond Boots are nice sexy armor. However, depending on the material you are on, more mobs will spawn!
