@@ -8,36 +8,36 @@ Features:
 ---------
 - A firework is ignited upon join.
 - Mobs have custom COLORED names.
--	Slimes are named "Jerry"
--	Villagers are named "Clone #<#>"
--	Wither is named "[Pimp] Big Daddy"
--	Enderdragon is named "Mama Endy"
--	Other mobs have names randomly picked from a list.
+- > Slimes are named "Jerry"
+- > Villagers are named "Clone #<#>"
+- > Wither is named "[Pimp] Big Daddy"
+- > Enderdragon is named "Mama Endy"
+- > Other mobs have names randomly picked from a list.
 - Zombies give birth to baby pigs every so often.
 - Players can ride any mob.
-- 	Upon riding mobs there is a 10% you may explode.
+- > Upon riding mobs there is a 10% you may explode.
 - Punching, with nothing in hand, shoots a fireball.
 - Placing, Destroying, and Explosing:
-- 	Falling sand entities of that block type are thrown into the air.
-- 	TNT and explosions spawn a creeper upon placement and break.
--	A firework spawns.
+- > Falling sand entities of that block type are thrown into the air.
+- > TNT and explosions spawn a creeper upon placement and break.
+- > A firework spawns.
 - Boats, when being ridden, can fly according to where the player is looking.
 - `/entity <entity>` - Spawns an entity.
-- 	Must be op or have permission: `entity.single`
+- > Must be op or have permission: `entity.single`
 - `/entity <#> <entity>` - Spawns x amount of entities.
-- 	Must be op or have permission: `entity.multiple`
+- > Must be op or have permission: `entity.multiple`
 - `/entity <#> <entity1> <entity2> <...>` - Spawns x amount of entity1 riding entity2 riding etc.
--	Must be op or have permission: `entity.multiple`
+- > Must be op or have permission: `entity.multiple`
 - While wearing diamond boots, certain mobs spawn while walking on certain materials.
-- 	Grass = Villager
-- 	Cobblestone = Zombie
-- 	Dirt, Leaves = Spider
-- 	Ice = Skeleton
-- 	Mossy Cobblestone = Silverfish
-- 	Snow = Wolves
-- 	Netherrack = Magma Cubes
-- 	Netherbrick = Blazes
--	Air = Wither (FUN FACT: Explosions from Withers spawn Creepers) 
+- > Grass = Villager
+- > Cobblestone = Zombie
+- > Dirt, Leaves = Spider
+- > Ice = Skeleton
+- > Mossy Cobblestone = Silverfish
+- > Snow = Wolves
+- > Netherrack = Magma Cubes
+- > Netherbrick = Blazes
+- > Air = Wither (FUN FACT: Explosions from Withers spawn Creepers) 
 
 Story (Walkthrough-like Encounter):
 ------
