@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 
@@ -23,7 +24,7 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e)
 	{
-		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getItem() == null)
+		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getItem().getType() == Material.AIR)
 		{
 			Location loc = e.getPlayer().getLocation().clone();
 			Fireball fireball = (Fireball) loc.getWorld().spawnEntity(loc, EntityType.FIREBALL);
@@ -37,7 +38,10 @@ public class PlayerListener implements Listener
 
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e)
-	{ e.getRightClicked().setPassenger(e.getPlayer()); }
+	{
+		e.getRightClicked().setPassenger(e.getPlayer());
+		if(new Random().nextInt(100) < 10) e.getPlayer().getWorld().createExplosion(e.getPlayer().getLocation(), 4);
+	}
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)
@@ -48,6 +52,14 @@ public class PlayerListener implements Listener
 	{
 		Player player		= e.getPlayer();
 		String playerName	= player.getName();
+
+		if(player.isInsideVehicle() && player.getVehicle().getType() == EntityType.BOAT)
+		{
+			Vector direction = player.getLocation().getDirection();
+			player.getVehicle().setVelocity(new Vector(direction.getX(), player.getVehicle().getVelocity().getY(), direction.getZ()));
+			return;
+		}
+
 		Block under			= e.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
 		ItemStack boots		= player.getInventory().getBoots();
 

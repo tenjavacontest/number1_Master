@@ -54,10 +54,6 @@ public class EntityListener implements Listener
 	}
 
 	@EventHandler
-	public void onEntityExplode(EntityExplodeEvent e)
-	{ e.getLocation().getWorld().spawnEntity(e.getLocation(), EntityType.CREEPER); }
-
-	@EventHandler
 	public void onEntitySpawn(CreatureSpawnEvent e)
 	{
 		final LivingEntity entity = e.getEntity();
@@ -116,6 +112,14 @@ public class EntityListener implements Listener
 	public void onBlockBreak(BlockBreakEvent e)
 	{ this.placeBreakBlock(e.getBlock());}
 
+	@EventHandler
+	public void onEntityExplode(EntityExplodeEvent e)
+	{
+		e.getLocation().getWorld().spawnEntity(e.getLocation(), EntityType.CREEPER);
+
+		for(Block block : e.blockList()) this.placeBreakBlock(block);
+	}
+
 	private void placeBreakBlock(Block block)
 	{
 		Location loc = block.getLocation().clone();
@@ -142,7 +146,7 @@ public class EntityListener implements Listener
 	@EventHandler
 	public void onEntityChangeBlock(EntityChangeBlockEvent e)
 	{
-		if(fallingBlocks.contains(e.getEntity()))
+		if(this.fallingBlocks.contains(e.getEntity()))
 		{
 			e.setCancelled(true);
 			e.getBlock().setType(Material.AIR);

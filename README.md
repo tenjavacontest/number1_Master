@@ -7,26 +7,29 @@ Documentation
 -------------
 
 ### Joining:
-A firework spawns! Is it not a beautiful entity? That was retorical ... Now, walk over to a mob. What do you see? A sexy-ass name :D
+Upon joining, a firework will spawn. It is a very nice entity ;) Now, walk over to a mob. What do you see? A sexy-ass name :D
+Slimes are called Jerry, Villagers are Clones, a Wither is called Big Daddy, and the EnderDragon is called Mama Endy.
+All other mobs are randomly named. Now what do you do with that mob? Right click it, but be careful!
+There is a 10% chance you will explode!
 
 ### Placing / Destroying:
-Place and destroying is interesting. Another firework spawns. :o On top of that, one will see falling sand entities :o
+Placing and destroying is interesting. Another firework spawns. :o On top of that, one will see falling block entities :o
 
-### Boats / Minecart:
-Boats are just too exciting for you. THEY CAN FLY! Minecarts, on the other hand, explode too often ...
+### Boats:
+Boats are just too exciting for you. THEY CAN FLY!
 
 ### Explosions:
-Upon exploding an entity will spawn a creeper. This will be abused later on ...
+Upon exploding, falling sand entities will fly like mad! Also, a creeper will spawn. This will be abused later on ...
 
 ### Commands:
-There is one command that will fit your needs.
-* /entity <entity> - Spawns an entity.
-* /entity <amount> <entity> - Spawns an amount of entites.
-* /entity <amount> <entity1> <entity2> <...> - Spawns entity2 on entity1 a certain amount of times.
+Three commands can support your needs:
+* `/entity <entity> - Spawns an entity.`
+* `/entity <amount> <entity>` - Spawns an amount of entites.`
+* `/entity <amount> <entity1> <entity2> <...> - Spawns entity2 riding entity1. A certain amount of these stacks will be created!`
 
 ### Walking:
-Diamond Boots are nice sexy armor. However, depending on the material you are on, more mobs spawn!
-Although they might be fairly safe, DO NOT GO GAMEMODE AND FLY IN THE AIR!
+Diamond Boots are nice sexy armor. However, depending on the material you are on, more mobs will spawn!
+Although you might be fairly safe, DO NOT FLY IN THE AIR!
 
 Enjoy :)
-========
+--------
