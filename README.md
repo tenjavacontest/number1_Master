@@ -8,7 +8,7 @@ Documentation
 
 ### Joining:
 Upon joining, a firework will spawn. It is a very nice entity ;) Now, walk over to a mob. What do you see? A sexy-ass name :D
-Slimes are called Jerry, Villagers are Clones, a Wither is called Big Daddy, and the EnderDragon is called Mama Endy.
+Slimes are called 'Jerry', Villagers are various clones, a Wither is called '[Pimp] Big Daddy', and the EnderDragon is called 'Mama Endy'.
 Zombies give birth to baby pigs (AWWWWWWW)! All other mobs are randomly named. Now what do you do with that mob?
 Right click it, but be careful! There is a 10% chance you will explode!
 

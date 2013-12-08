@@ -94,9 +94,6 @@ public class EntityListener implements Listener
 			return;
 		}
 
-		// Prevent changing the mobs name if it already has one. //
-		if(entity.getCustomName() != null) return;
-
 		Random random = new Random();
 
 		switch(e.getEntityType())
@@ -128,7 +125,7 @@ public class EntityListener implements Listener
 
 			// Withers are named Big Daddy. //
 			case WITHER:
-				entity.setCustomName("Big Daddy");
+				entity.setCustomName("[Pimp] Big Daddy");
 				break;
 
 			// Ender Dragons are named Mama Endy. //
@@ -195,7 +192,7 @@ public class EntityListener implements Listener
 	public void onEntityChangeBlock(EntityChangeBlockEvent e)
 	{
 		// Clear falling blocks before they are placed. //
-		if(this.fallingBlocks.contains(e.getEntity()))
+		if(e.getEntity().getType() == EntityType.FALLING_BLOCK && this.fallingBlocks.contains(e.getEntity()))
 		{
 			this.fallingBlocks.remove(e.getEntity());
 			e.getEntity().remove();
