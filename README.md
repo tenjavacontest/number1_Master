@@ -1,6 +1,7 @@
 number1_Master
 ==============
-Streaming: http://twitch.tv/MrDeveloperK/
+Theme: Entities
+
 Compiled against Craftbukkit Recommended Build 1.6.4-R2.0!
 
 Documentation
