@@ -1,5 +1,6 @@
 package me.number1_Master.TenJava;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -28,39 +29,70 @@ public class EntityListener implements Listener
 	public EntityListener()
 	{
 		this.entityNames = new ArrayList<String>();
-		this.entityNames.add("Maurquitte");
-		this.entityNames.add("George");
-		this.entityNames.add("Jerome");
-		this.entityNames.add("Jeral");
-		this.entityNames.add("Harry");
-		this.entityNames.add("Beautiful");
-		this.entityNames.add("Witch");
-		this.entityNames.add("Defaq");
-		this.entityNames.add("Reality");
-		this.entityNames.add("Maurice");
-		this.entityNames.add("DeShawn");
-		this.entityNames.add("Reginald");
-		this.entityNames.add("Tyrone");
-		this.entityNames.add("Marquis");
-		this.entityNames.add("Bradley");
-		this.entityNames.add("Judge Dread");
-		this.entityNames.add("Dustin");
-		this.entityNames.add("Tierra");
-		this.entityNames.add("Deja");
-		this.entityNames.add("Holly");
-		this.entityNames.add("Madeline");
-		this.entityNames.add("Caesar");
-		this.entityNames.add("Kacper");
+		// Possible names for mobs. //
+		this.entityNames.add(this.getRandomColor() + "Maurquitte");
+		this.entityNames.add(this.getRandomColor() + "George");
+		this.entityNames.add(this.getRandomColor() + "Jerome");
+		this.entityNames.add(this.getRandomColor() + "Jeral");
+		this.entityNames.add(this.getRandomColor() + "Harry");
+		this.entityNames.add(this.getRandomColor() + "Beautiful");
+		this.entityNames.add(this.getRandomColor() + "Witch");
+		this.entityNames.add(this.getRandomColor() + "Defaq");
+		this.entityNames.add(this.getRandomColor() + "Reality");
+		this.entityNames.add(this.getRandomColor() + "Maurice");
+		this.entityNames.add(this.getRandomColor() + "DeShawn");
+		this.entityNames.add(this.getRandomColor() + "Reginald");
+		this.entityNames.add(this.getRandomColor() + "Tyrone");
+		this.entityNames.add(this.getRandomColor() + "Marquis");
+		this.entityNames.add(this.getRandomColor() + "Bradley");
+		this.entityNames.add(this.getRandomColor() + "Judge Dread");
+		this.entityNames.add(this.getRandomColor() + "Dustin");
+		this.entityNames.add(this.getRandomColor() + "Tierra");
+		this.entityNames.add(this.getRandomColor() + "Deja");
+		this.entityNames.add(this.getRandomColor() + "Holly");
+		this.entityNames.add(this.getRandomColor() + "Madeline");
+		this.entityNames.add(this.getRandomColor() + "Caesar");
+		this.entityNames.add(this.getRandomColor() + "Kacper");
+	}
+
+	private ChatColor getRandomColor()
+	{
+		int color = new Random().nextInt();
+		if(color == 0) return ChatColor.AQUA;
+		else if(color == 1) return ChatColor.BLACK;
+		else if(color == 2) return ChatColor.BLUE;
+		else if(color == 3) return ChatColor.BOLD;
+		else if(color == 4) return ChatColor.DARK_AQUA;
+		else if(color == 5) return ChatColor.DARK_BLUE;
+		else if(color == 6) return ChatColor.DARK_GRAY;
+		else if(color == 7) return ChatColor.DARK_GREEN;
+		else if(color == 8) return ChatColor.DARK_PURPLE;
+		else if(color == 9) return ChatColor.DARK_RED;
+		else if(color == 10) return ChatColor.GOLD;
+		else if(color == 11) return ChatColor.GRAY;
+		else if(color == 12) return ChatColor.GREEN;
+		else if(color == 13) return ChatColor.ITALIC;
+		else if(color == 14) return ChatColor.LIGHT_PURPLE;
+		else if(color == 15) return ChatColor.MAGIC;
+		else if(color == 16) return ChatColor.RED;
+		else if(color == 17) return ChatColor.STRIKETHROUGH;
+		else if(color == 18) return ChatColor.UNDERLINE;
+		else if(color == 19) return ChatColor.WHITE;
+		else return ChatColor.YELLOW;
+
 	}
 
 	@EventHandler
 	public void onEntitySpawn(CreatureSpawnEvent e)
 	{
+		//if(e.getEntity().getWorld().getEntities().size() > 5000);
+
 		final LivingEntity entity = e.getEntity();
 		Random random = new Random();
 
 		switch(e.getEntityType())
 		{
+			// Zombies will be randomly named but also spawn pigs. //
 			case ZOMBIE:
 				e.getEntity().setCustomName(this.entityNames.get(random.nextInt(this.entityNames.size())));
 
@@ -80,22 +112,27 @@ public class EntityListener implements Listener
 				}.runTaskTimer(TenJava.p(), 100, 600);
 				break;
 
+			// Slimes are named Jerry. //
 			case SLIME:
 				entity.setCustomName("Jerry");
 				break;
 
+			// Withers are named Big Daddy. //
 			case WITHER:
 				entity.setCustomName("Big Daddy");
 				break;
 
+			// Ender Dragons are named Mama Endy. //
 			case ENDER_DRAGON:
 				entity.setCustomName("Mama Endy");
 				break;
 
+			// Villagers are Clones. //
 			case VILLAGER:
 				entity.setCustomName("Clone #" + random.nextInt(9876));
 				break;
 
+			// By default, name the mob randomly. //
 			default:
 				e.getEntity().setCustomName(this.entityNames.get(random.nextInt(this.entityNames.size())));
 				break;
@@ -120,6 +157,7 @@ public class EntityListener implements Listener
 		for(Block block : e.blockList()) this.placeBreakBlock(block);
 	}
 
+	// When a block is placed or destroyed, create falling sand entities and spawn a firework. //
 	private void placeBreakBlock(Block block)
 	{
 		Location loc = block.getLocation().clone();
@@ -138,19 +176,21 @@ public class EntityListener implements Listener
 			this.fallingBlocks.add(fallingBlock);
 		}
 
-		if(block.getType() == Material.TNT) loc.getWorld().spawnEntity(loc, EntityType.CREEPER);
-
 		TenJava.spawnFirework(loc);
+
+		// If the block is TNT, spawn a creeper! //
+		if(block.getType() == Material.TNT) loc.getWorld().spawnEntity(loc, EntityType.CREEPER);
 	}
 
 	@EventHandler
 	public void onEntityChangeBlock(EntityChangeBlockEvent e)
 	{
+		// Clear falling blocks before they are placed. //
 		if(this.fallingBlocks.contains(e.getEntity()))
 		{
-			e.setCancelled(true);
-			e.getBlock().setType(Material.AIR);
 			e.getEntity().remove();
+			e.getBlock().setType(Material.AIR);
+			e.setCancelled(true);
 		}
 	}
 }

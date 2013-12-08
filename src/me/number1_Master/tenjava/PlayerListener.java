@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
 import java.util.*;
 
@@ -24,7 +23,8 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e)
 	{
-		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getItem().getType() == Material.AIR)
+		// If the player punches the air, then shoot a fireball. //
+		if(e.getAction() == Action.LEFT_CLICK_AIR && e.getItem() == null)
 		{
 			Location loc = e.getPlayer().getLocation().clone();
 			Fireball fireball = (Fireball) loc.getWorld().spawnEntity(loc, EntityType.FIREBALL);
@@ -39,7 +39,9 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e)
 	{
+		// If a player right clicks an entity, make the player ride the entity. //
 		e.getRightClicked().setPassenger(e.getPlayer());
+		// If the random integer is less than 10, create an explosion. //
 		if(new Random().nextInt(100) < 10) e.getPlayer().getWorld().createExplosion(e.getPlayer().getLocation(), 4);
 	}
 
@@ -50,32 +52,35 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		Player player		= e.getPlayer();
-		String playerName	= player.getName();
+		Player player = e.getPlayer();
 
+		// If a player is already inside a boat, go in the direction of the boat.
 		if(player.isInsideVehicle() && player.getVehicle().getType() == EntityType.BOAT)
 		{
-			Vector direction = player.getLocation().getDirection();
-			player.getVehicle().setVelocity(new Vector(direction.getX(), player.getVehicle().getVelocity().getY(), direction.getZ()));
+			player.getVehicle().setVelocity(player.getLocation().getDirection());
 			return;
 		}
 
+		String playerName	= player.getName();
+		ItemStack boots = player.getInventory().getBoots();
 		Block under			= e.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
-		ItemStack boots		= player.getInventory().getBoots();
 
+		// If the player is spawning entities, check if they should continue spawning entities. //
 		if(this.entityTasks.containsKey(playerName))
 		{
-			if(this.entityTasks.get(playerName).getMaterial() == under.getType() &&
-					boots != null && boots.getType() == Material.DIAMOND_BOOTS)
-				return;
-			else
+			if((boots == null || (boots.getType() != Material.DIAMOND_BOOTS)) &&
+					this.entityTasks.get(playerName).getMaterial() != under.getType())
 			{
 				this.entityTasks.get(playerName).cancel();
 				this.entityTasks.remove(player.getName());
-				return;
 			}
+
+			return;
 		}
 
+		if(boots == null || boots.getType() != Material.DIAMOND_BOOTS) return;
+
+		// According to block type, begin spawning entites. //
 		switch(under.getType())
 		{
 			case GRASS:

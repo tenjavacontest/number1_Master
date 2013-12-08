@@ -25,11 +25,13 @@ public class EntityCommand implements CommandExecutor
 			}
 			else if(args.length == 1)
 			{
+				// Try to get an entity value, otherwise state the entity is unknown. //
 				try
 				{
 					EntityType entity = EntityType.valueOf(args[0].toUpperCase());
 					player.getWorld().spawnEntity(player.getLocation(), entity);
 					TenJava.spawnFirework(player.getLocation());
+
 					player.sendMessage(prefix + "Spawned entity " + args[0] + "!");
 				}
 				catch(Exception err)
@@ -38,16 +40,18 @@ public class EntityCommand implements CommandExecutor
 			}
 			else
 			{
+				// Parse the amount of entities asked for. //
 				int amount;
 				try
 				{ amount = Integer.valueOf(args[0]); }
 				catch(NumberFormatException err)
 				{ amount = 1; }
 
+				// Loop through each amount of entities. //
 				for(int i = 0; i < amount; i++)
 				{
+					// If a stacked entity, place an entity on itself until finished. //
 					Entity lastEntity = null;
-
 					for(int l = 1, a = args.length; l < a; l++)
 					{
 						try

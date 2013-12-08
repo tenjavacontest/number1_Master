@@ -24,10 +24,12 @@ public class EntityBlockSpawn
 			{
 				Location loc	= player.getLocation();
 				World world		= player.getWorld();
-				Location loc1	= loc.clone().add(8, 0, 0);
-				Location loc2	= loc.clone().subtract(8, 0, 0);
-				Location loc3	= loc.clone().add(0, 0, 8);
-				Location loc4	= loc.clone().subtract(0, 0, 8);
+
+				// Spawn the entity 6 blocks in the x, -x, z, and -z directions of the player. //
+				Location loc1	= loc.clone().add(6, 0, 0);
+				Location loc2	= loc.clone().subtract(6, 0, 0);
+				Location loc3	= loc.clone().add(0, 0, 6);
+				Location loc4	= loc.clone().subtract(0, 0, 6);
 
 				world.spawnEntity(loc1, entity);
 				world.spawnEntity(loc2, entity);

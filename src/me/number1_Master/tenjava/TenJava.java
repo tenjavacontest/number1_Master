@@ -18,10 +18,14 @@ public class TenJava extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
+		// JavaPlugin Instance. //
 		p = this;
 
+		// Registering /entity Command. /
 		this.getCommand("entity").setExecutor(new EntityCommand());
+		this.getCommand("entity").setTabCompleter(new EntityTabCompleter());
 
+		// Registering Listeners. //
 		this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 		this.getServer().getPluginManager().registerEvents(new EntityListener(), this);
 	}
@@ -37,11 +41,14 @@ public class TenJava extends JavaPlugin
 		Firework firework = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
 		FireworkMeta fwMeta = firework.getFireworkMeta();
 
+		// Get a random explosion and fade color for the firework. //
 		Color c1 = getFireworkColor(new Random().nextInt(18) + 1);
 		Color c2 = getFireworkColor(new Random().nextInt(18) + 1);
-		FireworkEffect effect = FireworkEffect.builder().withColor(c1).withFade(c2).with(FireworkEffect.Type.BALL_LARGE).build();
 
+		// Create and add the firework effect.
+		FireworkEffect effect = FireworkEffect.builder().withColor(c1).withFade(c2).with(FireworkEffect.Type.BALL_LARGE).build();
 		fwMeta.addEffect(effect);
+
 		fwMeta.setPower(1);
 
 		firework.setFireworkMeta(fwMeta);
