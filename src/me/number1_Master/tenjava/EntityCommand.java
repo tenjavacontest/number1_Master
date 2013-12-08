@@ -25,6 +25,12 @@ public class EntityCommand implements CommandExecutor
 			}
 			else if(args.length == 1)
 			{
+				if(!(player.hasPermission("entity.single")))
+				{
+					player.sendMessage(prefix + "You do not have permission to do that!");
+					return true;
+				}
+
 				// Try to get an entity value, otherwise state the entity is unknown. //
 				try
 				{
@@ -40,6 +46,12 @@ public class EntityCommand implements CommandExecutor
 			}
 			else
 			{
+				if(!(player.hasPermission("entity.multiple")))
+				{
+					player.sendMessage(prefix + "You do not have permission to do that!");
+					return true;
+				}
+
 				// Parse the amount of entities asked for. //
 				int amount;
 				try
