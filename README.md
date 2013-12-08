@@ -42,7 +42,7 @@ Features:
 Story (Walkthrough-like Encounter):
 ------
 
-### Joining:
+#### Joining:
 Upon joining, a firework will spawn. It is a very nice entity ;) Now, walk over to a mob.
 What do you see? A sexy-ass name ;). It seems Slimes are called 'Jerry', Villagers are various clones,
 a Wither is called '[Pimp] Big Daddy', and the EnderDragon is called 'Mama Endy'.
@@ -50,19 +50,19 @@ You notice Zombies give birth to baby pigs (AWWWWWWW)! All other mobs are random
 Now what do you do with the mob you are looking upon? You right click it, but be careful!
 You know there is a 10% chance you will explode! You start punching the air to spawn fireballs in rage!
 
-### Placing / Destroying:
+#### Placing / Destroying:
 You believe placing and destroying is interesting. Another firework spawns. :o
 On top of that, you notice falling block entities. Damn. Thats trippy. :o
 
-### Explosions:
+#### Explosions:
 CRASH BOOM ... that isn't even a Minecraft explosion. You see an explosion, and there are more 
 trippy falling sand entities! Also, a creeper spawns from the explosion ... UGH!
 Soon ... you find out this is abused ...
 
-### Boats:
+#### Boats:
 Boats are just too exciting for you. You craft one and hop on in. THEY CAN FLY!
 
-### Commands:
+#### Commands:
 After consulting documentation, you notice 3 commands that support tab completion:
 * `/entity <entity>` - Spawns an entity.
 * Permission: entity.single
@@ -71,7 +71,7 @@ After consulting documentation, you notice 3 commands that support tab completio
 * `/entity <amount> <entity1> <entity2> <...>` - Spawns x amount of entity2 riding entity1, riding etc.
 * Permission: entity.multiple
 
-### Walking:
+#### Walking:
 After finally creating your dream world, you craft some sexy Diamond Boots.
 However, you soon find this deadly. You notice on grass villager clones spawn like ape shit.
 Zombies are all over your cobblestone floors! As you retreat to your dirt-leaved house, spiders hurt you. 
@@ -84,4 +84,5 @@ You fly up ... and before you know it ... withers are spawning. Every time a wit
 it creates an explosion, spawning more and more creepers like Hell Fire. Its Dooms Day 101. In sadness,
 you spawn some snow and stand on it. Wolves spawn. You burn your diamond boots and rest in peace with your wolves.
 
-### The End!
+The End!
+--------
