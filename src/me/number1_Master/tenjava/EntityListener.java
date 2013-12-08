@@ -57,7 +57,7 @@ public class EntityListener implements Listener
 
 	private ChatColor getRandomColor()
 	{
-		int color = new Random().nextInt();
+		int color = new Random().nextInt(21);
 		if(color == 0) return ChatColor.AQUA;
 		else if(color == 1) return ChatColor.BLACK;
 		else if(color == 2) return ChatColor.BLUE;
@@ -85,9 +85,18 @@ public class EntityListener implements Listener
 	@EventHandler
 	public void onEntitySpawn(CreatureSpawnEvent e)
 	{
-		//if(e.getEntity().getWorld().getEntities().size() > 5000);
-
 		final LivingEntity entity = e.getEntity();
+
+		// Prevent Mob spawning if there are too many mobs. //
+		if(entity.getWorld().getEntities().size() >= 2048 * (Runtime.getRuntime().totalMemory() / 1024))
+		{
+			e.setCancelled(true);
+			return;
+		}
+
+		// Prevent changing the mobs name if it already has one. //
+		if(entity.getCustomName() != null) return;
+
 		Random random = new Random();
 
 		switch(e.getEntityType())
@@ -188,6 +197,7 @@ public class EntityListener implements Listener
 		// Clear falling blocks before they are placed. //
 		if(this.fallingBlocks.contains(e.getEntity()))
 		{
+			this.fallingBlocks.remove(e.getEntity());
 			e.getEntity().remove();
 			e.getBlock().setType(Material.AIR);
 			e.setCancelled(true);

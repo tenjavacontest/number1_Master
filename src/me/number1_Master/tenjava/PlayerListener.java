@@ -8,10 +8,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -127,6 +124,18 @@ public class PlayerListener implements Listener
 			case NETHER_BRICK:
 				this.entityTasks.put(playerName, new EntityBlockSpawn(player, Material.NETHER_BRICK, EntityType.BLAZE));
 				break;
+		}
+	}
+
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent e)
+	{
+		// If the player is spawning mobs, remove him or her from mermoy. //
+		String playerName = e.getPlayer().getName();
+		if(this.entityTasks.containsKey(playerName))
+		{
+			this.entityTasks.get(playerName).cancel();
+			this.entityTasks.remove(playerName);
 		}
 	}
 }
