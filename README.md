@@ -41,6 +41,8 @@ Features:
   Netherbrick = Blazes  
   Air = Wither (FUN FACT: Explosions from Withers spawn Creepers)
 
+**Here's a video my friend made because he thought it was cool: https://www.youtube.com/watch?v=Zgw7lziTPdw**
+
 Story (Walkthrough-like Encounter):
 ------
 
