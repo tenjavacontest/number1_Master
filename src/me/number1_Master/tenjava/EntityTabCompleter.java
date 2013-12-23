@@ -1,4 +1,4 @@
-package me.number1_Master.TenJava;
+package me.number1_Master.tenjava;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
